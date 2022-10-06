@@ -1,6 +1,6 @@
 export enum Device {
   'PHONE',
-  'TABLET',
+  'LAPTOP',
 }
 
 export enum FetchState {
@@ -12,12 +12,12 @@ export enum FetchState {
 
 export const DEVICE_LABEL = {
   [Device.PHONE]: 'Телефон',
-  [Device.TABLET]: 'Планшет',
+  [Device.LAPTOP]: 'Ноутбук',
 };
 
 export const DEVICE_FILTER = {
   [Device.PHONE]: 'smartphones',
-  [Device.TABLET]: 'laptops',
+  [Device.LAPTOP]: 'laptops',
 };
 
 export const DEVICE_OPTIONS = [
@@ -26,7 +26,7 @@ export const DEVICE_OPTIONS = [
     label: DEVICE_LABEL[Device.PHONE],
   },
   {
-    value: Device.TABLET,
-    label: DEVICE_LABEL[Device.TABLET],
+    value: Device.LAPTOP,
+    label: DEVICE_LABEL[Device.LAPTOP],
   },
 ];

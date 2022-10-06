@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Highcharts from 'highcharts';
 import Dropdown from './components/Dropdown/Dropdown';
 import Chart from './components/Chart/Chart';
+import Loader from './components/Loader/Loader';
 
 import {
   DEVICE_FILTER,
@@ -14,6 +15,8 @@ import {
 import { toggle } from './app/deviceSlice';
 import { fetchData } from './app/dataSlice';
 import { RootState } from './app/store';
+
+import './App.css';
 
 function App() {
   const deviceValue = useSelector((state: RootState) => state.device.value);
@@ -45,7 +48,7 @@ function App() {
     },
     series: [
       {
-        name: 'Рейтинг устройств',
+        name: 'Рейтинг устройства',
         type: 'column',
         data: devicesMemoized?.map((device: any) => device.rating),
       },
@@ -61,16 +64,25 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="wrapper">
       <Dropdown
         name="device"
         options={DEVICE_OPTIONS}
         onChange={onChangeMemoized}
         value={deviceValue}
       />
-      {dataState === FetchState.PENDING && 'lol'}
-      {dataState === FetchState.FULFILLED && <Chart options={options} />}
-      {dataState === FetchState.REJECTED && 'Ошибка загрузки'}
+      {(dataState === FetchState.PENDING ||
+        dataState === FetchState.REJECTED) && (
+        <div className="loaderWrapper">
+          {dataState === FetchState.PENDING && <Loader />}
+          {dataState === FetchState.REJECTED && 'Ошибка загрузки'}
+        </div>
+      )}
+      {dataState === FetchState.FULFILLED && (
+        <div className="chartWrapper">
+          <Chart options={options} />
+        </div>
+      )}
     </div>
   );
 }
